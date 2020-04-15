@@ -1,0 +1,28 @@
+body {
+    font-family: 'AMERIKA';
+}
+
+/* Make content area fill the entire browser window */
+html,
+.fullscreen {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-image: url("../images/asd.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Center the content in the browser window */
+.container {
+    margin: auto;
+    text-align: center;
+    background: rgba(210, 210, 210, 0.7);
+}
+
+.title {
+    font-size: 3rem;
+}
