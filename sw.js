@@ -1,3 +1,6 @@
+'use strict';
+self.importScripts('./js/fetchGQL.js');
+self.importScripts('./js/idb.js');
 let cacheName = 'hello-pwa';
 let filesToCache = [
     './',
@@ -6,6 +9,9 @@ let filesToCache = [
     './js/main.js',
     './font/web fonts/amerika_regular_macroman/AMERIKA_-webfont.woff',
     './images/asd.png',
+    './favicon.ico',
+    './js/idb.js',
+    './images/pwa.png',
     './webfonts/fa-brands-400.eot',
     './webfonts/fa-brands-400.svg',
     './webfonts/fa-brands-400.ttf',
@@ -50,3 +56,22 @@ self.addEventListener('fetch', (e) => {
 
     })());
 });
+
+self.addEventListener('sync', (event) => {
+    if (event.tag == 'send-message') {
+        event.waitUntil(sendToServer());
+    }
+});
+
+const sendToServer = async () => {
+    try {
+        const outbox = await loadData('outbox');
+        console.log('outbox', outbox);
+        const sentMessages = outbox.map(async (message) => await saveGreeting(message));
+        console.log('sentMessages', sentMessages);
+        clearData('outbox');
+    }
+    catch (e) {
+        console.log(e.message);
+    }
+};
